@@ -1,0 +1,25 @@
+.new-tweet-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.new-tweet-form textarea {
+  background-color: #f4f1ec;
+  border: none;
+  resize: none;
+  outline:0px none transparent;
+  border-bottom: 4px solid;
+}
+
+.new-tweet-form button {
+  background-color: #4056A1;
+  color: white;
+}
+
+.tweet-info {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  font-family: "bungee"
+}
