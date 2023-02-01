@@ -1,3 +1,8 @@
+.new-tweet {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
 .new-tweet-form {
   display: flex;
   flex-direction: column;
