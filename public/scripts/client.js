@@ -63,10 +63,18 @@ $(document).ready(function() {
     const inputText = $(this).children("#tweet-text").val();
 
     if (inputText === "" || inputText === null) {
-      alert("No tweet description has been entered.")
+      const errorText = "Please enter a description";
+      // alert("Please enter a description")
+      $("#error").text(errorText);
+      $("#error").slideDown();
     } else if(inputText.length > maxCharacterLength) {
-      alert("maximum message length exceeded.")
+      const errorText = "maximum message length exceeded.";
+      // alert("maximum message length exceeded.")
+      $("#error").text(errorText);
+      $("#error").slideDown();
     } else {
+      // alert("no error")
+      $("#error").slideUp();
       this.reset();
       $.ajax('/tweets/', { method: 'POST' , data:queryString})
       .then(function () {

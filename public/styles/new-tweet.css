@@ -32,3 +32,8 @@
 .negative-counter {
   color: red;
 }
+
+#error {
+  display: none;
+  color: red;
+}
