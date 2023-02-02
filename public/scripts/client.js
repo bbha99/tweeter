@@ -4,6 +4,18 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+// const $tweetImg = $("<img>").text(tweetObj.user.avatars).text();
+// const $tweetHeader = $("<h3>").text(tweetObj.user.name).text();
+// const $tweetText = $("<p>").text(tweetObj.content.text).text();
+// const $tweetHandle = $("<h3>").text(tweetObj.user.handle).text();
+// const $tweetTime = $("<p>").text(timeago.format(tweetObj.created_at)).text();
+
+const escapeText = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 // Creates the tweet post object
 const createTweetElement = function(tweetObj) {
   const $tweet = $(`
@@ -15,7 +27,7 @@ const createTweetElement = function(tweetObj) {
     </div>
     <h3>${tweetObj.user.handle}</h3>
   </header>
-  <p>${tweetObj.content.text}</p>
+  <p>${escapeText(tweetObj.content.text)}</p>
   <footer class="tweet-footer">
     <p>${timeago.format(tweetObj.created_at)}</p>
     <div>
@@ -25,6 +37,7 @@ const createTweetElement = function(tweetObj) {
     </div>
   </footer>
 </article>`);
+
   return $tweet;
 }
 
@@ -33,18 +46,37 @@ const renderTweets = function(tweets) {
   // loops through tweets
   // calls createTweetElement for each tweet
   // takes return value and appends it to the tweets container
-  tweets.forEach(tweetData => {
+  for (let i = tweets.length - 1; i >= 0; i--) {
+    const tweetData = tweets[i];
     const $tweet = createTweetElement(tweetData);
     $('#tweets-container').append($tweet);
-  });
+  }
 }
 
+// Events occuring after page has finished loading
 $(document).ready(function() {
-
+  const maxCharacterLength = 140;
   $newTweet = $('form').submit(function (event) {
     event.preventDefault();
+
     const queryString = $(this).serialize();
-    $.ajax('/tweets/', { method: 'POST' , data:queryString})
+    const inputText = $(this).children("#tweet-text").val();
+
+    if (inputText === "" || inputText === null) {
+      alert("No tweet description has been entered.")
+    } else if(inputText.length > maxCharacterLength) {
+      alert("maximum message length exceeded.")
+    } else {
+      this.reset();
+      $.ajax('/tweets/', { method: 'POST' , data:queryString})
+      .then(function () {
+        $.ajax('/tweets/', { method: 'GET' })
+        .then(function (res) {
+          const $tweet = createTweetElement(res[res.length-1]);
+          $('#tweets-container').prepend($tweet);
+        });
+      });
+    }
   });
 
   const loadTweets = function() {
