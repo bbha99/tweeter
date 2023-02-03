@@ -2,7 +2,12 @@
 
 Tweeter is a simple, single-page Twitter clone.
 
-This repository is the starter code for the project: Students will fork and clone this repository, then build upon it to practice their HTML, CSS, JS, jQuery and AJAX front-end skills, and their Node, Express back-end skills.
+This repository is a frontend single page website that involves HTML, CSS, JS, jQuery and AJAX front-end, Node, Express. Users can enter a text response in the textarea input field to create a new tweet post that includes a response and other randomly generated information. The user can create a new post by clicking the "Write a new tweet" to toggle a new post form into view. The website handles responsiveness using media queries for desktop and mobile view.
+
+## Final Product
+
+!["screenshot of desktop view"](https://github.com/bbha99/tweeter/blob/master/docs/desktop.png?raw=true)
+!["screenshot of mobile view"](https://github.com/bbha99/tweeter/blob/master/docs/mobile.png?raw=true)
 
 ## Getting Started
 
