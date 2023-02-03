@@ -1,36 +1,26 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
-const escapeText = function (str) {
-  let div = document.createElement("div");
-  div.appendChild(document.createTextNode(str));
-  return div.innerHTML;
-};
+// Client Side Javascript
 
 // Creates the tweet post object
 const createTweetElement = function(tweetObj) {
   const $tweet = $(`
   <article class="tweet">
-  <header>
-    <div class="tweet-header">
-      <img src="${tweetObj.user.avatars}" alt="face sketch">
-      <h3>${tweetObj.user.name}</h3>
-    </div>
-    <h3>${tweetObj.user.handle}</h3>
-  </header>
-  <p>${escapeText(tweetObj.content.text)}</p>
-  <footer class="tweet-footer">
-    <p>${timeago.format(tweetObj.created_at)}</p>
-    <div>
-      <i class="fa-solid fa-flag"></i>
-      <i class="fa-solid fa-repeat"></i>
-      <i class="fa-solid fa-heart"></i>
-    </div>
-  </footer>
-</article>`);
+    <header>
+      <div class="tweet-header">
+        <img src="${tweetObj.user.avatars}" alt="face sketch">
+        <h3>${tweetObj.user.name}</h3>
+      </div>
+      <h3>${tweetObj.user.handle}</h3>
+    </header>
+    <p>${escapeText(tweetObj.content.text)}</p>
+    <footer class="tweet-footer">
+      <p>${timeago.format(tweetObj.created_at)}</p>
+      <div>
+        <i class="fa-solid fa-flag"></i>
+        <i class="fa-solid fa-repeat"></i>
+        <i class="fa-solid fa-heart"></i>
+      </div>
+    </footer>
+  </article>`);
 
   return $tweet;
 }
@@ -47,6 +37,13 @@ const renderTweets = function(tweets) {
   }
 }
 
+// Escapes text to prevent XSS
+const escapeText = function (str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 // Events occuring after page has finished loading
 $(document).ready(function() {
   const maxCharacterLength = 140;
@@ -56,18 +53,20 @@ $(document).ready(function() {
     const queryString = $(this).serialize();
     const inputText = $(this).children("#tweet-text").val();
 
+    // Error: No input in tweet form
     if (inputText === "" || inputText === null) {
       const errorText = "Please enter a description";
-      // alert("Please enter a description")
       $("#error").text(errorText);
       $("#error").slideDown();
+    
+      // Error: Input is over character limit
     } else if(inputText.length > maxCharacterLength) {
       const errorText = "maximum message length exceeded.";
-      // alert("maximum message length exceeded.")
       $("#error").text(errorText);
       $("#error").slideDown();
+
+      // Post and retrieve newly created post
     } else {
-      // alert("no error")
       $("#error").slideUp();
       this.reset();
       $(this).children(".tweet-info").children(".counter").text(140);
@@ -82,6 +81,7 @@ $(document).ready(function() {
     }
   });
 
+  // Loads all post
   const loadTweets = function() {
     $.ajax('/tweets/', { method: 'GET' })
     .then(function (res) {
@@ -91,6 +91,7 @@ $(document).ready(function() {
 
   loadTweets();
 
+  // Displays and hides new tweet form on click
   $(".open-form-button").click(function() {
     if (!$(".new-tweet").is(":visible")) {
       $(".new-tweet").slideDown("normal", function() {
