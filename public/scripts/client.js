@@ -98,7 +98,9 @@ $(document).ready(function() {
       });
     } else {
       $(".new-tweet").slideUp("normal", function() {
+        $(".counter").removeClass("negative-counter");
         $("#tweet-text").val("");
+        $("#error").text("");
         $(".counter").text(140);
     });
     }
