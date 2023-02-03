@@ -15,20 +15,17 @@
   left: 0;
 }
 
-#nav-logo {
-  font-family: 'Bungee';
- }
-
-#nav-new-tweet {
+nav #nav-logo {
+  font-family: "Bungee";
+}
+nav #nav-new-tweet {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-#nav-new-tweet i {
-  color: red;
-}
-
-.nav-write-text {
+nav #nav-new-tweet div .nav-write-text {
   font-weight: 600;
+}
+nav #nav-new-tweet i {
+  color: red;
 }
