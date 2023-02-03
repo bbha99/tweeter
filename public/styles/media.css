@@ -21,4 +21,7 @@
     margin-right: 0;
     margin-left: 0;
   }
+  nav #nav-new-tweet i {
+    color: red;
+  }
 }

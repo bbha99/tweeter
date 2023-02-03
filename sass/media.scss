@@ -1,6 +1,7 @@
 // Media Query styling
 
 $nav-background-color: #4056A1;
+$nav-symbol-color: red;
 /* Desktop Breakpoint: minimum width of 1024px */
 @media only screen and (min-width: 1024px) {
   .nav-container {
@@ -26,5 +27,13 @@ $nav-background-color: #4056A1;
     margin-top: 120px;
     margin-right: 0;
     margin-left: 0;
+  }
+
+  nav {
+    #nav-new-tweet {
+      i {
+        color: $nav-symbol-color;
+      }
+    }
   }
 }
