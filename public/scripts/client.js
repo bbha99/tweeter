@@ -4,12 +4,6 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// const $tweetImg = $("<img>").text(tweetObj.user.avatars).text();
-// const $tweetHeader = $("<h3>").text(tweetObj.user.name).text();
-// const $tweetText = $("<p>").text(tweetObj.content.text).text();
-// const $tweetHandle = $("<h3>").text(tweetObj.user.handle).text();
-// const $tweetTime = $("<p>").text(timeago.format(tweetObj.created_at)).text();
-
 const escapeText = function (str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
@@ -76,6 +70,7 @@ $(document).ready(function() {
       // alert("no error")
       $("#error").slideUp();
       this.reset();
+      $(this).children(".tweet-info").children(".counter").text(140);
       $.ajax('/tweets/', { method: 'POST' , data:queryString})
       .then(function () {
         $.ajax('/tweets/', { method: 'GET' })
@@ -95,5 +90,18 @@ $(document).ready(function() {
   }
 
   loadTweets();
+
+  $(".open-form-button").click(function() {
+    if (!$(".new-tweet").is(":visible")) {
+      $(".new-tweet").slideDown("normal", function() {
+        $("#tweet-text").focus();
+      });
+    } else {
+      $(".new-tweet").slideUp("normal", function() {
+        $("#tweet-text").val("");
+        $(".counter").text(140);
+    });
+    }
+  });
 
 });

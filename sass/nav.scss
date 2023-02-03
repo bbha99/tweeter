@@ -33,7 +33,12 @@ nav {
     flex-direction: column;
     align-items: center;
 
-    div {
+    button.open-form-button {
+      cursor: pointer;
+      background-color: Transparent;
+      border: none;
+      color: #FFFFFF;
+      
       .nav-write-text {
         font-weight: $nav-write-text-bold;
       }
