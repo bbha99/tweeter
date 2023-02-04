@@ -27,8 +27,6 @@ const createTweetElement = function(tweetObj) {
 
 // Displays all the tweet post
 const renderTweets = function(tweets) {
-  // loops through tweets
-  // calls createTweetElement for each tweet
   // takes return value and appends it to the tweets container
   for (let i = tweets.length - 1; i >= 0; i--) {
     const tweetData = tweets[i];
@@ -47,7 +45,7 @@ const escapeText = function (str) {
 // Events occuring after page has finished loading
 $(document).ready(function() {
   const maxCharacterLength = 140;
-  $newTweet = $('form').submit(function (event) {
+  $newTweet = $('form').on('submit', function (event) {
     event.preventDefault();
 
     const queryString = $(this).serialize();
